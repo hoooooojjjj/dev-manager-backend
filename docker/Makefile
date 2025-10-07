@@ -1,4 +1,4 @@
-.PHONY: help build-dev build-prod dev prod up down restart logs clean check-env
+.PHONY: help build-dev build-prod dev dev-logs prod up down restart logs clean check-env
 
 # Colors for output
 RED := \033[0;31m
@@ -29,11 +29,17 @@ build-prod: check-env ## Build production Docker images
 	@echo "$(GREEN)Building production images...$(NC)"
 	docker-compose -f docker-compose.prod.yml --env-file ../.env build
 
-dev: check-env ## Start development environment (with hot reload)
+dev: check-env ## Start development environment in background
 	@echo "$(GREEN)Starting development environment...$(NC)"
 	docker-compose -f docker-compose.dev.yml --env-file ../.env up -d
 	@echo "$(GREEN)Development server is running at http://localhost:3333$(NC)"
 	@echo "$(YELLOW)Run 'make logs' to see the logs$(NC)"
+
+dev-logs: check-env ## Start development environment with live logs
+	@echo "$(GREEN)Starting development environment with live logs...$(NC)"
+	@echo "$(YELLOW)Press Ctrl+C to stop (containers will keep running)$(NC)"
+	@echo ""
+	docker-compose -f docker-compose.dev.yml --env-file ../.env up
 
 prod: check-env ## Start production environment
 	@echo "$(GREEN)Starting production environment...$(NC)"

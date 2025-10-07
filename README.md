@@ -9,57 +9,100 @@ NestJS 기반 백엔드 서비스로 Anthropic AI SDK와 MySQL 데이터베이�
 - Docker Desktop
 - Node.js 20+ (로컬 개발 시)
 
-### 1. 환경 변수 설정
+## 1. 환경 변수 설정
+
+### .env 파일 생성
 
 ```bash
-# .env 파일 생성
 cp .env.example .env
+```
 
-# .env 파일을 열어서 실제 값 입력
-# - ANTHROPIC_API_KEY
-# - DB_HOST
-# - DB_PORT
-# - DB_USERNAME
-# - DB_PASSWORD
-# - DB_DATABASE
+### .env 파일을 열어서 실제 값 입력
 
-2. Docker로 개발 시작 (권장)
+- ANTHROPIC_API_KEY
+
+- DB_HOST
+
+- DB_PORT
+
+- DB_USERNAME
+
+- DB_PASSWORD
+
+- DB_DATABASE
+
+## 2. Docker로 개발 시작 (권장)
+
+```bash
 cd docker
+```
 
-# 실시간 로그와 함께 시작
+### 실시간 로그와 함께 시작
+
+```bash
 make dev-logs
+```
 
-# 또는 백그라운드로 시작
+### 또는 백그라운드로 시작
+
+```bash
 make dev
-make logs  # 로그 보기
-서버가 실행되면 http://localhost:3333 에서 접근 가능
-3. 로컬 개발 (Docker 없이)
-# MySQL이 로컬에 설치되어 있어야 함
-# .env의 DB_HOST=127.0.0.1로 설정
+```
 
+```bash
+make logs # 로그 보기
+```
+
+서버가 실행되면 http://localhost:3333 에서 접근 가능
+
+## 3. 로컬 개발 (Docker 없이)
+
+### MySQL이 로컬에 설치되어 있어야 함
+
+#### .env의 DB_HOST=127.0.0.1로 설정
+
+```bash
 npm install
 npm run start:dev
-Docker 명령어
+```
+
+## 4. Docker 명령어
+
+```bash
 cd docker
+```
 
-# 개발 환경
-make dev-logs      # 실시간 로그와 함께 시작 (추천)
-make dev           # 백그라운드로 시작
-make logs          # 로그 보기
-make down          # 중지
+### 개발 환경
 
-# 기타 유용한 명령어
-make help          # 모든 명령어 보기
-make rebuild-dev   # 완전히 재빌드
-make shell-app     # 앱 컨테이너 셸 접속
-make shell-db      # MySQL 셸 접속
-MySQL Workbench 연결
+```bash
+make dev-logs # 실시간 로그와 함께 시작 (추천)
+make dev # 백그라운드로 시작
+make logs # 로그 보기
+make down # 중지
+```
+
+### 기타 유용한 명령어
+
+```bash
+make help # 모든 명령어 보기
+make rebuild-dev # 완전히 재빌드
+make shell-app # 앱 컨테이너 셸 접속
+make shell-db # MySQL 셸 접속
+```
+
+### MySQL Workbench 연결
+
+```bash
 Host: 127.0.0.1
 Port: 3306
 Username: root
 Password: .env 파일의 DB_PASSWORD
 Database: .env 파일의 DB_DATABASE
-프로젝트 구조
+```
+
+## 5. 프로젝트 구조
+
+```bash
 ├── src/              # 소스 코드
 │   ├── entities/     # TypeORM 엔티티
 │   ├── main.ts       # 애플리케이션 진입점
@@ -70,19 +113,31 @@ Database: .env 파일의 DB_DATABASE
 │   ├── Dockerfile.prod
 │   └── docker-compose.*.yml
 └── CLAUDE.md
+```
 
-# Claude Code 프로젝트 가이드
-기술 스택
+## 6. Claude Code 프로젝트 가이드
+
+### 기술 스택
+
+```bash
 Framework: NestJS
 Database: MySQL 8.0 with TypeORM
 AI: Anthropic AI SDK
 Container: Docker & Docker Compose
-개발 워크플로우
+```
+
+### 개발 워크플로우
+
+```bash
 make dev-logs로 서버 시작
 src/ 폴더에서 코드 수정 (자동 hot reload)
 MySQL Workbench로 데이터베이스 확인
 Ctrl+C로 로그 종료 (컨테이너는 계속 실행됨)
 make down으로 완전히 중지
-추가 정보
-자세한 개발 가이드는 CLAUDE.md를 참고하세요.
+```
+
+### 추가 정보
+
+```bash
+  자세한 개발 가이드는 CLAUDE.md를 참고하세요.
 ```

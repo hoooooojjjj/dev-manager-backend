@@ -37,6 +37,49 @@ This is a NestJS backend service (dev-manager-backend) that integrates with the 
 
 - `npm run start:prod` - Run production build (requires `npm run build` first)
 
+### Docker
+
+**Prerequisites**:
+- Create `.env` file in the project root (copy from `.env.example` and fill in your values)
+- Make sure Docker Desktop is running
+
+All Docker commands should be run from the `docker/` directory:
+
+```bash
+cd docker
+make [command]
+```
+
+**Development Commands:**
+- `make help` - Show all available commands
+- `make dev` or `make up` - Start development environment with hot reload
+- `make build-dev` - Build development Docker images
+- `make logs` - View all logs
+- `make logs-app` - View application logs only
+- `make logs-db` - View database logs only
+- `make down` - Stop development environment
+- `make restart` - Restart development environment
+- `make rebuild-dev` - Rebuild and restart development
+
+**Production Commands:**
+- `make prod` - Start production environment
+- `make build-prod` - Build production Docker images
+- `make logs-prod` - View production logs
+- `make down-prod` - Stop production environment
+- `make restart-prod` - Restart production environment
+- `make rebuild-prod` - Rebuild and restart production
+
+**Utility Commands:**
+- `make ps` - List running containers
+- `make shell-app` - Open shell in app container
+- `make shell-db` - Open MySQL shell
+- `make clean` - Remove all containers and volumes (dangerous!)
+
+**Important**:
+- Development mode runs with hot reload - code changes in `src/` are automatically reflected
+- Both MySQL and NestJS application run in Docker containers
+- Development uses `docker-compose.dev.yml` and production uses `docker-compose.prod.yml`
+
 ## Architecture
 
 ### Core Structure
@@ -61,6 +104,7 @@ This is a NestJS backend service (dev-manager-backend) that integrates with the 
 - **Entities**: Located in `src/entities/` with `.entity.ts` suffix
 - **Synchronization**: Auto-sync enabled in development (disabled in production)
 - **Environment Variables**: Database credentials in `.env` (DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE)
+- **Docker Setup**: MySQL 8.0 runs in a Docker container. In Docker environment, `DB_HOST` is automatically set to `mysql` (container name). For local development without Docker, use `DB_HOST=127.0.0.1`.
 
 ### External Integrations
 

@@ -1,6 +1,13 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { DataSource } from "typeorm";
+import * as dotenv from "dotenv";
 
-export const typeormConfig: TypeOrmModuleOptions = {
+dotenv.config();
+
+/**
+ * TypeORM CLI용 DataSource 설정
+ * 마이그레이션 생성 및 실행에 사용됩니다.
+ */
+export const AppDataSource = new DataSource({
   type: "mysql",
   host: process.env.DB_HOST || "localhost",
   port: parseInt(process.env.DB_PORT || "3306"),
@@ -9,7 +16,6 @@ export const typeormConfig: TypeOrmModuleOptions = {
   database: process.env.DB_DATABASE || "dev_manager",
   entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   migrations: [__dirname + "/../migrations/*{.ts,.js}"],
-  synchronize: process.env.NODE_ENV !== "production",
+  synchronize: false, // 마이그레이션 사용 시 false
   logging: process.env.NODE_ENV !== "production",
-  migrationsRun: false, // 마이그레이션 자동 실행 여부
-};
+});

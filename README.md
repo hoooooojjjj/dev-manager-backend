@@ -120,28 +120,6 @@ npm run migration:run
 
 npm run migration:revert
 
-주요 명령어
-
-# 엔티티 변경사항 기반 자동 생성
-
-npm run migration:generate src/migrations/YourMigrationName
-
-# 빈 마이그레이션 파일 생성 (수동 작성용)
-
-npm run migration:create src/migrations/YourMigrationName
-
-# 마이그레이션 실행
-
-npm run migration:run
-
-# 마지막 마이그레이션 되돌리기
-
-npm run migration:revert
-
-# 실행된 마이그레이션 목록 보기
-
-npm run migration:show
-
 ## 5. 프로젝트 구조
 
 ```bash

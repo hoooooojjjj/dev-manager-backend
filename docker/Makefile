@@ -104,3 +104,8 @@ clean: ## Remove all containers, volumes, and images
 rebuild-dev: down build-dev dev ## Rebuild and restart development environment
 
 rebuild-prod: down-prod build-prod prod ## Rebuild and restart production environment
+
+install: ## Install packages and restart (no rebuild needed)
+	@echo "$(GREEN)Installing packages and restarting...$(NC)"
+	docker-compose -f docker-compose.dev.yml --env-file ../.env restart app
+	@echo "$(GREEN)Done! Packages will be installed on container startup.$(NC)"

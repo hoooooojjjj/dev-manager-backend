@@ -15,4 +15,5 @@ COPY . .
 EXPOSE 3333
 
 # Start development server with hot reload
-CMD ["npm", "run", "start:dev"]
+# Check if package.json changed and reinstall if needed
+CMD ["sh", "-c", "npm install && npm run start:dev"]

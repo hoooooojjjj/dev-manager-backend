@@ -43,9 +43,12 @@ services:
     volumes:
       - ../src:/app/src
       - ../package.json:/app/package.json
+      - ../package-lock.json:/app/package-lock.json
       - ../tsconfig.json:/app/tsconfig.json
       - ../tsconfig.build.json:/app/tsconfig.build.json
       - /app/node_modules
+    # 자동 재시작 설정 (package.json 변경 감지)
+    command: sh -c "npm install && npm run start:dev"
 
 volumes:
   mysql_dev_data:

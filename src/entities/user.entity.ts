@@ -24,6 +24,22 @@ export class User {
   @Column({ type: "varchar", length: 500, nullable: true, name: "avatar_url" })
   avatarUrl: string | null;
 
+  // 로그인 정보
+  @Column({
+    type: "varchar",
+    length: 500,
+    nullable: true,
+    name: "refresh_token_hash",
+  })
+  refreshTokenHash: string | null;
+
+  @Column({
+    type: "timestamp",
+    nullable: true,
+    name: "last_login_at",
+  })
+  lastLoginAt: Date | null;
+
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 

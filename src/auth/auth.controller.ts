@@ -49,7 +49,7 @@ export class AuthController {
   async githubCallback(
     @Body() dto: GithubCallbackDto,
   ): Promise<AuthResponseDto> {
-    return this.authService.githubCallback(dto.code);
+    return this.authService.githubCallback(dto.code, dto.environment);
   }
 
   @Post("refresh")

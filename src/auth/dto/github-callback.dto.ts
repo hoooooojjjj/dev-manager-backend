@@ -1,5 +1,10 @@
-import { IsString, IsNotEmpty } from "class-validator";
+import { IsString, IsNotEmpty, IsEnum } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+
+export enum OAuthEnvironment {
+  DEVELOPMENT = "development",
+  PRODUCTION = "production",
+}
 
 export class GithubCallbackDto {
   @ApiProperty({
@@ -9,4 +14,13 @@ export class GithubCallbackDto {
   @IsString()
   @IsNotEmpty()
   code: string;
+
+  @ApiProperty({
+    description: "OAuth environment (development or production)",
+    enum: OAuthEnvironment,
+    example: OAuthEnvironment.DEVELOPMENT,
+  })
+  @IsEnum(OAuthEnvironment)
+  @IsNotEmpty()
+  environment: OAuthEnvironment;
 }

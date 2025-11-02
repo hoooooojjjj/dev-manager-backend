@@ -46,8 +46,8 @@ export class AuthService {
    * GitHub OAuth Callback 처리
    * Authorization Code -> Access Token -> User Info -> JWT 발급
    */
-  async githubCallback(code: string) {
-    const accessToken = await this.exchangeCodeForToken(code);
+  async githubCallback(code: string, environment: string) {
+    const accessToken = await this.exchangeCodeForToken(code, environment);
 
     const githubUser = await this.getGithubUser(accessToken);
 
@@ -64,13 +64,33 @@ export class AuthService {
   /**
    * GitHub Authorization Code를 Access Token으로 교환
    */
-  private async exchangeCodeForToken(code: string): Promise<string> {
+  private async exchangeCodeForToken(
+    code: string,
+    environment: string,
+  ): Promise<string> {
     try {
+      // 환경에 따라 credentials 변경
+      const clientId =
+        environment === "development"
+          ? process.env.GITHUB_CLIENT_ID_DEV
+          : process.env.GITHUB_CLIENT_ID_PROD;
+
+      const clientSecret =
+        environment === "development"
+          ? process.env.GITHUB_CLIENT_SECRET_DEV
+          : process.env.GITHUB_CLIENT_SECRET_PROD;
+
+      if (!clientId || !clientSecret) {
+        throw new UnauthorizedException(
+          `GitHub OAuth credentials not configured for ${environment} environment`,
+        );
+      }
+
       const response = await axios.post<GithubTokenResponse>(
         "https://github.com/login/oauth/access_token",
         {
-          client_id: process.env.GITHUB_CLIENT_ID,
-          client_secret: process.env.GITHUB_CLIENT_SECRET,
+          client_id: clientId,
+          client_secret: clientSecret,
           code,
         },
         {

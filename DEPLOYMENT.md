@@ -36,22 +36,16 @@ flyctl deploy --remote-only
 
 #### 1. SSH 터널로 로컬 접속 (권장)
 
-```bash
-# 터널 생성 (로컬 3307 → Fly.io MySQL 3306)
+````bash
+# 터널 생성 (로컬 3307 → Fly.io MySQL 3306으로 터널링)
 flyctl proxy 3307:3306 -a dev-manager-mysql
 
-# 다른 터미널에서 MySQL 접속
-mysql -h 127.0.0.1 -P 3307 -u root -p
-```
-
-GUI 도구(TablePlus, DBeaver 등)도 이 터널을 통해 접속 가능합니다.
-
-#### 2. 직접 SSH 접속
-
-```bash
-flyctl ssh console -a dev-manager-mysql
-mysql -u root -p$MYSQL_ROOT_PASSWORD dev_manager
-```
+MySQL Workbench 연결 설정:
+Hostname: 127.0.0.1
+Port: 3307
+Username: root
+Password: (Fly.io MySQL 비밀번호)
+=> mysql workbench로 접속
 
 ### 마이그레이션 관리
 
@@ -62,7 +56,7 @@ mysql -u root -p$MYSQL_ROOT_PASSWORD dev_manager
 ```toml
 [deploy]
   release_command = 'npm run migration:run'
-```
+````
 
 #### 마이그레이션 확인
 

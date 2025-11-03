@@ -1,0 +1,35 @@
+# fly.toml app configuration file generated for dev-manager-backend on 2025-11-03T13:49:17+09:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'dev-manager-backend'
+primary_region = 'nrt'
+
+[build]
+  dockerfile = 'docker/Dockerfile.prod'
+
+[deploy]
+  release_command = 'npm run migration:run'
+
+[env]
+  NODE_ENV = 'production'
+  PORT = '3333'
+
+[http_service]
+  internal_port = 3333
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+  [http_service.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

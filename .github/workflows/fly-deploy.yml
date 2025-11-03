@@ -1,0 +1,34 @@
+# GitHub Actions 워크플로우: Fly.io 자동 배포
+# main 브랜치에 push될 때 자동으로 fly.io에 배포
+
+name: Deploy to Fly.io
+
+# 워크플로우 트리거 조건
+on:
+  push:
+    branches:
+      - main # main 브랜치에 push될 때 실행
+
+# 환경 변수
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy to Fly.io
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 저장소 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Fly.io CLI 설치
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      # 3. Fly.io에 배포 (환경 변수는 fly secrets로 설정)
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

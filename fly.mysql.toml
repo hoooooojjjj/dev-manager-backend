@@ -1,0 +1,34 @@
+# Fly.io MySQL 데이터베이스 설정 파일
+# 백엔드 앱과 분리된 별도 MySQL 앱
+
+app = 'dev-manager-mysql'
+primary_region = 'nrt'
+
+[build]
+  image = 'mysql:8.0'
+
+[env]
+  # MySQL 8.0 기본 설정
+  MYSQL_DATABASE = 'dev_manager'
+  # 모든 호스트에서 root 접속 허용 (Fly.io 내부 네트워크)
+  MYSQL_ROOT_HOST = '%'
+
+# MySQL 포트 (내부 네트워크만 접근 가능)
+[[services]]
+  internal_port = 3306
+  protocol = 'tcp'
+
+  # 내부 네트워크만 허용 (외부 인터넷 차단)
+  [[services.ports]]
+    port = 3306
+
+# MySQL 데이터 영구 저장을 위한 Volume 마운트
+[mounts]
+  source = 'mysql_data'
+  destination = '/var/lib/mysql'
+
+# VM 리소스 설정 (MySQL 8.0 안정 동작을 위해 512MB 필수)
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

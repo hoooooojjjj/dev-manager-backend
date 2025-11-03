@@ -29,8 +29,16 @@ RUN npm ci --only=production
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
+# TypeORM 마이그레이션을 위해 소스 파일도 복사 (migration:run 명령어 필요)
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/tsconfig*.json ./
+
 # Expose application port
 EXPOSE 3333
+
+# 헬스체크 설정 (fly.io 및 Docker에서 앱 상태 확인용)
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3333/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
 CMD ["node", "dist/main"]

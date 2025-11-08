@@ -17,20 +17,24 @@ export class CreateProjectDto {
   title: string;
 
   @ApiProperty({
-    description: "Notion PRD URL",
-    example: "https://notion.so/page-id",
+    description: "Notion PRD URLs",
+    example: ["https://notion.so/page-id"],
+    type: [String],
   })
-  @IsUrl()
-  @IsNotEmpty()
-  notionUrl: string;
+  @IsArray()
+  @IsUrl(undefined, { each: true })
+  @IsNotEmpty({ each: true })
+  notionUrls: string[];
 
   @ApiProperty({
-    description: "GitHub repository URL",
-    example: "https://github.com/user/repo",
+    description: "GitHub repository URLs",
+    example: ["https://github.com/user/repo"],
+    type: [String],
   })
-  @IsUrl()
-  @IsNotEmpty()
-  repo: string;
+  @IsArray()
+  @IsUrl(undefined, { each: true })
+  @IsNotEmpty({ each: true })
+  repos: string[];
 
   @ApiPropertyOptional({
     description: "List of focus files for analysis",

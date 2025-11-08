@@ -21,16 +21,18 @@ export class ProjectResponseDto {
   title: string;
 
   @ApiProperty({
-    description: "Notion PRD URL",
-    example: "https://notion.so/page-id",
+    description: "Notion PRD URLs",
+    example: ["https://notion.so/page-id"],
+    type: [String],
   })
-  notionUrl: string;
+  notionUrls: string[];
 
   @ApiProperty({
-    description: "GitHub repository URL",
-    example: "https://github.com/user/repo",
+    description: "GitHub repository URLs",
+    example: ["https://github.com/user/repo"],
+    type: [String],
   })
-  repo: string;
+  repos: string[];
 
   @ApiProperty({
     description: "List of focus files for analysis",

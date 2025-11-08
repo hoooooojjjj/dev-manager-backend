@@ -34,11 +34,11 @@ export class Project {
   @Column({ type: "varchar", length: 255 })
   title: string;
 
-  @Column({ type: "varchar", length: 500, name: "notion_url" })
-  notionUrl: string;
+  @Column("simple-array", { name: "notion_urls" })
+  notionUrls: string[];
 
-  @Column({ type: "varchar", length: 500 })
-  repo: string;
+  @Column("simple-array", { name: "repos" })
+  repos: string[];
 
   @Column({ type: "json", name: "focus_files" })
   focusFiles: string[];

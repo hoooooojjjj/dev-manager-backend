@@ -16,8 +16,8 @@ export class ProjectsRepository {
   async createProject(projectData: {
     userId: string;
     title: string;
-    notionUrl: string;
-    repo: string;
+    notionUrls: string[];
+    repos: string[];
     focusFiles: string[];
     outputNotionUrl: string;
     status: ProjectStatus;

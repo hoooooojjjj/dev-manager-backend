@@ -19,6 +19,7 @@ export class ProjectsRepository {
     notionUrl: string;
     repo: string;
     focusFiles: string[];
+    outputNotionUrl: string;
     status: ProjectStatus;
   }): Promise<Project> {
     const project = this.repository.create(projectData);

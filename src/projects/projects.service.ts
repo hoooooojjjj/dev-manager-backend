@@ -22,6 +22,7 @@ export class ProjectsService {
       notionUrl: createProjectDto.notionUrl,
       repo: createProjectDto.repo,
       focusFiles: createProjectDto.focusFiles || [],
+      outputNotionUrl: createProjectDto.outputNotionUrl,
       status: ProjectStatus.INTAKE,
     };
     const savedProject =

@@ -37,8 +37,8 @@ export class Project {
   @Column({ type: "varchar", length: 500, name: "notion_url" })
   notionUrl: string;
 
-  @Column({ type: "varchar", length: 500, nullable: true })
-  repo: string | null;
+  @Column({ type: "varchar", length: 500 })
+  repo: string;
 
   @Column({ type: "json", name: "focus_files" })
   focusFiles: string[];
@@ -46,10 +46,9 @@ export class Project {
   @Column({
     type: "varchar",
     length: 500,
-    nullable: true,
     name: "output_notion_url",
   })
-  outputNotionUrl: string | null;
+  outputNotionUrl: string;
 
   @Column({
     type: "enum",

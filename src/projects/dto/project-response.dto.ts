@@ -26,11 +26,11 @@ export class ProjectResponseDto {
   })
   notionUrl: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: "GitHub repository URL",
     example: "https://github.com/user/repo",
   })
-  repo: string | null;
+  repo: string;
 
   @ApiProperty({
     description: "List of focus files for analysis",
@@ -39,11 +39,11 @@ export class ProjectResponseDto {
   })
   focusFiles: string[];
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: "Published Notion document URL",
     example: "https://notion.so/published-page-id",
   })
-  outputNotionUrl: string | null;
+  outputNotionUrl: string;
 
   @ApiProperty({
     description: "Project status",

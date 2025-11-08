@@ -42,4 +42,12 @@ export class CreateProjectDto {
   @IsString({ each: true })
   @IsOptional()
   focusFiles?: string[];
+
+  @ApiProperty({
+    description: "Published Notion document URL",
+    example: "https://notion.so/published-page-id",
+  })
+  @IsUrl()
+  @IsNotEmpty()
+  outputNotionUrl: string;
 }

@@ -219,7 +219,7 @@ export class AuthService {
       // Refresh Token 검증
       const payload = this.jwtService.verify(refreshToken, {
         secret: this.jwtSecret,
-      }) as { sub: number; email: string };
+      }) as { sub: string; email: string };
 
       const user = await this.userRepository.findOne({
         where: { id: payload.sub },
@@ -265,7 +265,7 @@ export class AuthService {
   /**
    * 현재 사용자 조회
    */
-  async validateUser(userId: number): Promise<User> {
+  async validateUser(userId: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new UnauthorizedException("User not found");

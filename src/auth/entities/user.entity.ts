@@ -4,12 +4,17 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { Project } from "../../projects/entities/project.entity";
 
 @Entity("users")
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @OneToMany(() => Project, (project) => project.user)
+  projects: Project[];
 
   // GitHub OAuth 정보
   @Column({ type: "varchar", length: 255, unique: true })

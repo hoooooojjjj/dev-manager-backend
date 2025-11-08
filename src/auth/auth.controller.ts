@@ -26,7 +26,7 @@ import {
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
 
 @ApiTags("auth")
-@Controller("api/v1/auth")
+@Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -116,7 +116,7 @@ export class AuthController {
     description: "인증되지 않음",
   })
   async getCurrentUser(
-    @Request() req: { user: { id: number } },
+    @Request() req: { user: { id: string } },
   ): Promise<UserDto> {
     const user = await this.authService.validateUser(req.user.id);
     return {

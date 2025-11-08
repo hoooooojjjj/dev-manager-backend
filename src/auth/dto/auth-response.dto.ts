@@ -1,8 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UserDto {
-  @ApiProperty({ description: "사용자 ID", example: 1 })
-  id: number;
+  @ApiProperty({
+    description: "사용자 ID",
+    example: "123e4567-e89b-12d3-a456-426614174000",
+  })
+  id: string;
 
   @ApiProperty({
     description: "이메일",

@@ -9,7 +9,7 @@ export const typeormConfig: TypeOrmModuleOptions = {
   database: process.env.DB_DATABASE || "dev_manager",
   entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   migrations: [__dirname + "/../migrations/*{.ts,.js}"],
-  synchronize: process.env.NODE_ENV !== "production",
+  synchronize: false,
   logging: process.env.NODE_ENV !== "production",
   migrationsRun: false, // 마이그레이션 자동 실행 여부
 };

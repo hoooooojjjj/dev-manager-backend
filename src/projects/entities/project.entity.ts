@@ -34,10 +34,10 @@ export class Project {
   @Column({ type: "varchar", length: 255 })
   title: string;
 
-  @Column("simple-array", { name: "notion_urls" })
+  @Column({ type: "json", name: "notion_urls" })
   notionUrls: string[];
 
-  @Column("simple-array", { name: "repos" })
+  @Column({ type: "json", name: "repos" })
   repos: string[];
 
   @Column({ type: "json", name: "focus_files" })

@@ -102,23 +102,23 @@ Database: .env 파일의 DB_DATABASE
 
 ### DB 마이그레이션
 
-# 1. 엔티티 변경
+**📚 자세한 마이그레이션 관리 가이드는 [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)를 참조하세요.**
 
-# 2. 자동으로 마이그레이션 생성
+기본 명령어:
 
+```bash
+# 1. 엔티티 변경 후 마이그레이션 자동 생성
 npm run migration:generate src/migrations/YourMigrationName
 
-# 3. 생성된 마이그레이션 확인
-
+# 2. 생성된 마이그레이션 확인
 npm run migration:show
 
-# 4. DB에 적용
-
+# 3. DB에 적용
 npm run migration:run
 
-# 5. 잘못됐으면 되돌리기
-
+# 4. 잘못됐으면 되돌리기
 npm run migration:revert
+```
 
 ## 5. 프로젝트 구조
 

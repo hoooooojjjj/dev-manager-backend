@@ -9,14 +9,6 @@ export class SpecController {
   constructor(private readonly specService: SpecService) {}
 
   /**
-   * GitHub MCP 연결 상태 확인
-   */
-  @Get("test")
-  async testConnection(): Promise<{ status: string; message: string }> {
-    return this.specService.testConnection();
-  }
-
-  /**
    * GitHub 리포지토리 정보 가져오기
    * @param owner - 리포지토리 소유자
    * @param repo - 리포지토리 이름
@@ -27,5 +19,21 @@ export class SpecController {
     @Param("repo") repo: string,
   ): Promise<any> {
     return this.specService.getRepositoryInfo(owner, repo);
+  }
+
+  /**
+   * 노션 정보 가져오기
+   */
+  @Get("notion")
+  async getNotionInfo(): Promise<any> {
+    return this.specService.getNotionInfo();
+  }
+
+  /**
+   * 노션 정보 가져오기
+   */
+  @Get("notion/api")
+  async getNotionInfoByApi(): Promise<any> {
+    return this.specService.getNotionInfoByApi();
   }
 }

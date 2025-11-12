@@ -28,12 +28,4 @@ export class SpecController {
   async getNotionInfo(): Promise<any> {
     return this.specService.getNotionInfo();
   }
-
-  /**
-   * 노션 정보 가져오기
-   */
-  @Get("notion/api")
-  async getNotionInfoByApi(): Promise<any> {
-    return this.specService.getNotionInfoByApi();
-  }
 }

@@ -102,4 +102,44 @@ export class SpecService {
       };
     }
   }
+
+  /**
+   * Brave 검색 결과 가져오기
+   */
+  async getExaSearchResult(): Promise<any> {
+    try {
+      const response = await this.client.messages.create({
+        model: "claude-3-5-haiku-latest",
+        max_tokens: 2048,
+        mcp_servers: [
+          {
+            type: "url",
+            url: "https://mcp.exa.ai/mcp",
+            name: "exa-mcp",
+          },
+        ],
+        messages: [
+          {
+            role: "user",
+            content: `나는 프론트엔드 메인 풀스택 개발자입니다. exa MCP를 사용하여 2025년 11월 기준 대한민국 주요 스타트업 개발자/풀스택/AIagent 채용 공고를 3개만 검색하세요. 검색 결과를 반환하세요.
+            응답은 기업명, 공고 URL만 아주 짧게 반환하세요.`,
+          },
+        ],
+      } as any);
+
+      return {
+        status: "success",
+        data: response.content,
+        fullResponse: response, // 전체 응답 확인용
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+        errorType: error.constructor.name,
+        details: error.response?.data,
+        stack: error.stack,
+      };
+    }
+  }
 }

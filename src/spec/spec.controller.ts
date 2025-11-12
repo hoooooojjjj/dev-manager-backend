@@ -24,8 +24,16 @@ export class SpecController {
   /**
    * 노션 정보 가져오기
    */
-  @Get("notion")
+  @Get("notion/page")
   async getNotionInfo(): Promise<any> {
     return this.specService.getNotionInfo();
+  }
+
+  /**
+   * Brave 검색 결과 가져오기
+   */
+  @Get("exa/search")
+  async getExaSearchResult(): Promise<any> {
+    return this.specService.getExaSearchResult();
   }
 }
